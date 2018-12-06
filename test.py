@@ -17,7 +17,7 @@ result_dir = './result_Sony/'
 # get test IDs
 test_fns = glob.glob(gt_dir + '/1*.ARW')
 test_ids = [int(os.path.basename(test_fn)[0:5]) for test_fn in test_fns]
-test_ids = test_ids[:1]
+test_ids = [10191]
 print(test_ids)
 
 DEBUG = 0
@@ -117,6 +117,7 @@ print("ok")
 for test_id in test_ids:
     # test the first image in each sequence
     in_files = glob.glob(input_dir + '%05d_00*.ARW' % test_id)
+    print(in_files)
     for k in range(len(in_files)):
         in_path = in_files[k]
         in_fn = os.path.basename(in_path)
@@ -125,7 +126,9 @@ for test_id in test_ids:
         gt_path = gt_files[0]
         gt_fn = os.path.basename(gt_path)
         in_exposure = float(in_fn[9:-5])
+        print("in_exposure"+str(in_exposure))
         gt_exposure = float(gt_fn[9:-5])
+        print("gt_exposure"+str(gt_exposure))
         ratio = min(gt_exposure / in_exposure, 300)
 
         raw = rawpy.imread(in_path)
